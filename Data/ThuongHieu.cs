@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UltraStrore.Data
+namespace UltraStrore.Data;
+
+public partial class ThuongHieu
 {
-    public partial class ThuongHieu
-    {
+    public string MaThuongHieu { get; set; } = null!;
 
-        public int MaThuongHieu { get; set; }
-        public string? TenThuongHieu { get; set; }
+    public string? TenThuongHieu { get; set; }
 
-        public virtual ICollection<SanPham> SanPhams { get; set; }
-    }
+    public virtual ICollection<SanPham> SanPhams { get; set; } = new List<SanPham>();
 }

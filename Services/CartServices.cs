@@ -1,5 +1,4 @@
-﻿using UltraStrore.Data;
-using UltraStrore.Data.Temp;
+﻿using UltraStrore.Data.Temp;
 using UltraStrore.Helper;
 using UltraStrore.Models.CreateModels;
 using UltraStrore.Models.ViewModels;
@@ -9,45 +8,70 @@ namespace UltraStrore.Services
 {
     public class CartServices : ICartServices
     {
-        private readonly ApplicationDbContext _context;
-
-        public CartServices(ApplicationDbContext context)
-        {
-            _context = context;
-        }
         public static List<KhachHang> KhachHangaaa = new List<KhachHang>
         {
             new KhachHang
             {
-                MaNguoiDung= "KH001",
+                MaNguoiDung="KH001",
                 TenTaiKhoan="User",
                 MatKhau="123456"
             }
-        };      
-        public async Task<GioHangView> GioHangViews(string? MaKhachHang)
+        };
+        public static List<GioHang> GioHangaa = new List<GioHang>
+        {
+            new GioHang
+            {
+                ID=1,
+                MaKhacHang="KH001"
+            }
+        };
+        public static List<ChiTietGioHang> CTGH = new List<ChiTietGioHang>
+        {
+            new ChiTietGioHang
+            {
+                MaCTGH =1,
+                MaGioHang =1,
+                MaSanPham="A00001_ff0000_XL",
+                MaCombo =null,
+                SoLuong =2,
+                Gia = 150000,
+                ThanhTien = 300000,
+            },
+            new ChiTietGioHang
+            {
+                MaCTGH =2,
+                MaGioHang =1,
+                MaSanPham="A00002_00ffff_XL",
+                MaCombo =null,
+                SoLuong =3,
+                Gia = 150000,
+                ThanhTien = 450000,
+            }
+        };
+
+        public async Task<GioHangView> GioHangViews(string MaKhachHang)
         {
             GioHangView GioHangView = new GioHangView();
-            var GioHang = _context.GioHangs.Where(g => g.MaNguoiDung == MaKhachHang).FirstOrDefault();
+            var GioHang = CartServices.GioHangaa.Where(g=>g.MaKhacHang==MaKhachHang).FirstOrDefault();
             if (GioHang != null)
             {
-                var CTGH = _context.ChiTietGioHangs.Where(g => g.MaGioHang == GioHang.MaGioHang).ToList();
+                var CTGH = CartServices.CTGH.Where(g => g.MaGioHang == GioHang.ID).ToList();
                 List<ChiTietGioHangSanPhamView> DetailSanPhamView = new List<ChiTietGioHangSanPhamView>();
                 foreach (var item in CTGH)
                 {
-                    var sp = _context.SanPhams.Where(g => g.MaSanPham == item.MaSanPham).FirstOrDefault();
+                    var sp = SanPhamServices.sanpham.Where(g => g.ID == item.MaSanPham).FirstOrDefault();
                     ChiTietGioHangSanPhamView spview = new ChiTietGioHangSanPhamView();
                     spview.IDSanPham = item.MaSanPham;
-                    spview.TenSanPham = sp.TenSanPham;
-                    spview.TienSanPham = sp.Gia * item.SoLuong ?? 0;
-                    spview.MauSac = sp.MaSanPham.Split('_')[1];
-                    spview.KickThuoc = sp.MaSanPham.Split('_')[2];
-                    spview.SoLuong = item.SoLuong ?? 0;
+                    spview.TenSanPham = sp.Name;
+                    spview.TienSanPham = sp.DonGia * item.SoLuong;
+                    spview.MauSac = sp.ID.Split('_')[1];
+                    spview.KickThuoc = sp.ID.Split('_')[2];
+                    spview.SoLuong = item.SoLuong;
                     DetailSanPhamView.Add(spview);
                 }
                 GioHangView.CTGHSanPhamView = DetailSanPhamView;
-                if(MaKhachHang!=null)
-                    GioHangView.IDNguoiDung = MaKhachHang;
-                GioHangView.ID = GioHang.MaGioHang;
+                GioHangView.IDNguoiDung = MaKhachHang;
+                GioHangView.ID = GioHang.ID;
                 return GioHangView;
             }
             return GioHangView;
@@ -59,8 +83,8 @@ namespace UltraStrore.Services
             try
             {
                 string MaSanPham = info.IDSanPham.Trim() + "_" + info.MauSac.Trim() + "_" + info.KichThuoc.Trim();
-                var SanPham = _context.SanPhams.Where(g => g.MaSanPham == MaSanPham).FirstOrDefault();
-                var item = _context.NguoiDungs.Where(g => g.MaNguoiDung == info.IDNguoiDung).FirstOrDefault();
+                var SanPham = SanPhamServices.sanpham.Where(g => g.ID == MaSanPham).FirstOrDefault();
+                var item = KhachHangaaa.Where(g => g.MaNguoiDung == info.IDNguoiDung).FirstOrDefault();
                 if (item == null)
                 {
                     response.Result = "Lỗi";
@@ -68,22 +92,25 @@ namespace UltraStrore.Services
                 }
                 else
                 {
-                    var GioHangCustomer = _context.GioHangs.Where(g => g.MaNguoiDung == item.MaNguoiDung).FirstOrDefault();
+                    var GioHangCustomer = GioHangaa.Where(g => g.MaKhacHang == item.MaNguoiDung).FirstOrDefault();
                     int IDGioHang = -1;
                     if (GioHangCustomer == null)
                     {
+                        var MaxIDGioHang = GioHangaa.OrderByDescending(g => g.ID).Select(g => g.ID).FirstOrDefault();
+                        MaxIDGioHang++;
                         GioHang gioHang = new GioHang()
                         {
-                            MaNguoiDung = info.IDNguoiDung
+                            ID = MaxIDGioHang,
+                            MaKhacHang = info.IDNguoiDung
                         };
-                        _context.GioHangs.Add(gioHang);
-                        IDGioHang = gioHang.MaGioHang;
+                        GioHangaa.Add(gioHang);
+                        IDGioHang = gioHang.ID;
                     }
                     else
                     {
-                        IDGioHang = GioHangCustomer.MaGioHang;
-                        var Checked = _context.ChiTietGioHangs.Where(g => g.MaGioHang == IDGioHang).ToList();
-                        if (Checked.Count > 0)
+                        IDGioHang = GioHangCustomer.ID;
+                        var Checked = CTGH.Where(g => g.MaGioHang == IDGioHang).ToList();
+                        if(Checked.Count > 0)
                         {
                             foreach (var check in Checked)
                             {
@@ -95,20 +122,21 @@ namespace UltraStrore.Services
                                     return response;
                                 }
                             }
-                        }
-                    }
-                    var MaxIDCTGH = _context.ChiTietGioHangs.OrderByDescending(g => g.MaCtgh).Select(g => g.MaCtgh).FirstOrDefault();
+                        }                     
+                    }                           
+                    var MaxIDCTGH = CTGH.OrderByDescending(g => g.MaCTGH).Select(g => g.MaCTGH).FirstOrDefault();
                     MaxIDCTGH++;
                     ChiTietGioHang ctgh = new ChiTietGioHang()
                     {
+                        MaCTGH = MaxIDCTGH,
                         MaGioHang = IDGioHang,
                         MaSanPham = MaSanPham,
                         MaCombo = null,
                         SoLuong = info.SoLuong,
-                        Gia = SanPham.Gia,
-                        ThanhTien = info.SoLuong * SanPham.Gia
+                        Gia = SanPham.DonGia,
+                        ThanhTien = info.SoLuong * SanPham.DonGia
                     };
-                    _context.ChiTietGioHangs.Add(ctgh);
+                    CTGH.Add(ctgh);
                     response.ResponseCode = 201;
                     response.Result = "Thêm vào giỏ hàng thành công";
                 }
@@ -119,7 +147,7 @@ namespace UltraStrore.Services
                 response.Result = $"Lỗi: {ex.Message}";
             }
             return response;
-        }
+        }    
     }
 }
 

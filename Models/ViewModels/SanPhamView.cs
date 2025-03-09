@@ -9,11 +9,8 @@
         public List<string>? KichThuoc { get; set; }
         public int SoLuong { get; set; }
         public int DonGia { get; set; }
-        public string? MoTa { get; set; }
-        public string? ChatLieu { get; set; }
         public List<string>? MauSac {  get; set; }
-        public List<byte[]>? Hinh { get; set; }
+        public List<string>? Hinh { get; set; }
         public DateOnly? NgayTao { get; set; }
-        public int? TrangThai { get; set; }
     }
 }

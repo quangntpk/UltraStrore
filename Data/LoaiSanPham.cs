@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UltraStrore.Data
+namespace UltraStrore.Data;
+
+public partial class LoaiSanPham
 {
-    public partial class LoaiSanPham
-    {
+    public string MaLoaiSanPham { get; set; } = null!;
 
-        public int MaLoaiSanPham { get; set; }
-        public string? TenLoaiSanPham { get; set; }
-        public string? KiHieu { get; set; }
+    public string? TenLoaiSanPham { get; set; }
 
-        public virtual ICollection<SanPham> SanPhams { get; set; }
-    }
+    public virtual ICollection<SanPham> SanPhams { get; set; } = new List<SanPham>();
 }
