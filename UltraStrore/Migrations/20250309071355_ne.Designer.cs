@@ -12,8 +12,8 @@ using UltraStrore.Data;
 namespace UltraStrore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250307141158_sdfj")]
-    partial class sdfj
+    [Migration("20250309071355_ne")]
+    partial class ne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,9 @@ namespace UltraStrore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ma_san_pham");
+
+                    b.Property<DateTime?>("NgayBinhLuan")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NoiDungBinhLuan")
                         .HasMaxLength(255)
@@ -425,6 +428,9 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nguoi_dung");
 
+                    b.Property<int?>("CancelConunt")
+                        .HasColumnType("int");
+
                     b.Property<string>("Cccd")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
@@ -449,6 +455,9 @@ namespace UltraStrore.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ho_ten");
+
+                    b.Property<DateTime?>("LockoutEndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MatKhau")
                         .HasMaxLength(50)

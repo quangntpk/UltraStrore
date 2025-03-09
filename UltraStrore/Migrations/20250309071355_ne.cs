@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UltraStrore.Migrations
 {
     /// <inheritdoc />
-    public partial class sdfj : Migration
+    public partial class ne : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,9 @@ namespace UltraStrore.Migrations
                     trang_thai = table.Column<int>(type: "int", nullable: true),
                     hinh_anh = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     ngay_tao = table.Column<DateTime>(type: "date", nullable: true),
-                    mo_ta = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    mo_ta = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    CancelConunt = table.Column<int>(type: "int", nullable: true),
+                    LockoutEndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -236,7 +238,8 @@ namespace UltraStrore.Migrations
                     noi_dung_binh_luan = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     so_tim_binh_luan = table.Column<int>(type: "int", nullable: true),
                     danh_gia = table.Column<double>(type: "float", nullable: true),
-                    TrangThai = table.Column<int>(type: "int", nullable: true)
+                    TrangThai = table.Column<int>(type: "int", nullable: true),
+                    NgayBinhLuan = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
