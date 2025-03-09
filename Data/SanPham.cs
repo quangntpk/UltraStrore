@@ -15,9 +15,9 @@ public partial class SanPham
 
     public string? MaComBo { get; set; }
 
-    public string? MaThuongHieu { get; set; }
+    public int? MaThuongHieu { get; set; }
 
-    public string? MaLoaiSanPham { get; set; }
+    public int? MaLoaiSanPham { get; set; }
 
     public string? KichThuoc { get; set; }
 

@@ -9,7 +9,7 @@ public partial class NguoiDung
 
     public string? HoTen { get; set; }
 
-    public DateOnly? NgaySinh { get; set; }
+    public DateTime? NgaySinh { get; set; }
 
     public string? Sdt { get; set; }
 
@@ -20,15 +20,16 @@ public partial class NguoiDung
     public string? DiaChi { get; set; }
 
     public string? MatKhau { get; set; }
+    public string? TaiKhoan { get; set; }   
+    public int? TrangThai { get; set; }
 
-    public bool? TrangThai { get; set; }
+    public byte[]? HinhAnh { get; set; }
+    public int? VaiTro { get; set; }
+    public DateTime? NgayTao { get; set; }
 
-    public string? HinhAnh { get; set; }
-
-    public DateOnly? NgayKy { get; set; }
-
-    public string? MaLa { get; set; }
-
+    public string? MoTa { get; set; }
+    public int? CancelConunt { get; set; }
+    public DateTime? LockoutEndDate { get; set; }
     public virtual ICollection<DanhSachDiaChi> DanhSachDiaChis { get; set; } = new List<DanhSachDiaChi>();
 
     public virtual ICollection<DonHang> DonHangs { get; set; } = new List<DonHang>();

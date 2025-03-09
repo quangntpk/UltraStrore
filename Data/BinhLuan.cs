@@ -20,4 +20,6 @@ public partial class BinhLuan
     public virtual ICollection<HinhAnh> HinhAnhs { get; set; } = new List<HinhAnh>();
 
     public virtual SanPham? MaSanPhamNavigation { get; set; }
+    public int TrangThai { get; set; }
+    public DateTime NgayBinhLuan { get; set; }
 }

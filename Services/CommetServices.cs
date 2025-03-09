@@ -27,7 +27,7 @@ namespace UltraStrore.Services
                     MaSanPham = bl.MaSanPham,
                     MaNguoiDung = bl.MaNguoiDung,
                     NoiDungBinhLuan = bl.NoiDungBinhLuan,
-                    SoTimBinhLuan = bl.SoTimBinhLuan,
+                    SoTimBinhLuan = bl.SoBinhLuan,
                     DanhGia = bl.DanhGia,
                     TrangThai = bl.TrangThai,
                     NgayBinhLuan = bl.NgayBinhLuan
@@ -54,7 +54,7 @@ namespace UltraStrore.Services
             existingBinhLuan.MaSanPham = binhLuan.MaSanPham;
             existingBinhLuan.MaNguoiDung = binhLuan.MaNguoiDung;
             existingBinhLuan.NoiDungBinhLuan = binhLuan.NoiDungBinhLuan;
-            existingBinhLuan.SoTimBinhLuan = binhLuan.SoTimBinhLuan;
+            existingBinhLuan.SoBinhLuan = binhLuan.SoBinhLuan;
             existingBinhLuan.DanhGia = binhLuan.DanhGia;
             existingBinhLuan.NgayBinhLuan = binhLuan.NgayBinhLuan;
 

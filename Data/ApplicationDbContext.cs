@@ -342,14 +342,14 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.HoTen)
                 .HasMaxLength(100)
                 .HasColumnName("ho_ten");
-            entity.Property(e => e.MaLa)
+            entity.Property(e => e.MoTa)
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("ma_la");
             entity.Property(e => e.MatKhau)
                 .HasMaxLength(50)
                 .HasColumnName("mat_khau");
-            entity.Property(e => e.NgayKy).HasColumnName("ngay_ky");
+            entity.Property(e => e.NgayTao).HasColumnName("ngay_ky");
             entity.Property(e => e.NgaySinh).HasColumnName("ngay_sinh");
             entity.Property(e => e.Sdt)
                 .HasMaxLength(15)
