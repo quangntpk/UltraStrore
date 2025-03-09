@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UltraStrore.Data;
-
-public partial class GioHang
+namespace UltraStrore.Data
 {
-    public int MaGioHang { get; set; }
+    public partial class GioHang
+    {
 
-    public string? MaNguoiDung { get; set; }
+        public int MaGioHang { get; set; }
+        public string? MaNguoiDung { get; set; }
 
-    public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; } = new List<ChiTietGioHang>();
-
-    public virtual NguoiDung? MaNguoiDungNavigation { get; set; }
+        public virtual NguoiDung? MaNguoiDungNavigation { get; set; }
+        public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }
+    }
 }

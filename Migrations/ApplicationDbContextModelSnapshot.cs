@@ -25,8 +25,11 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.BinhLuan", b =>
                 {
                     b.Property<int>("MaBinhLuan")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ma_binh_luan");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaBinhLuan"));
 
                     b.Property<double?>("DanhGia")
                         .HasColumnType("float")
@@ -44,19 +47,25 @@ namespace UltraStrore.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ma_san_pham");
 
+                    b.Property<DateTime?>("NgayBinhLuan")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("NoiDungBinhLuan")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("noi_dung_binh_luan");
 
-                    b.Property<int?>("SoBinhLuan")
+                    b.Property<int?>("SoTimBinhLuan")
                         .HasColumnType("int")
-                        .HasColumnName("so_binh_luan");
+                        .HasColumnName("so_tim_binh_luan");
+
+                    b.Property<int?>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("MaBinhLuan")
                         .HasName("PK__BINH_LUA__300DD2D899CEB418");
 
-                    b.HasIndex("MaSanPham");
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_BINH_LUAN_ma_san_pham");
 
                     b.ToTable("BINH_LUAN", (string)null);
                 });
@@ -64,8 +73,11 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.ChiTietComBo", b =>
                 {
                     b.Property<int>("MaChiTietComBo")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ma_chi_tiet_com_bo");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaChiTietComBo"));
 
                     b.Property<int?>("MaComBo")
                         .HasColumnType("int")
@@ -84,20 +96,21 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaChiTietComBo")
                         .HasName("PK__CHI_TIET__1B885A91D07009B0");
 
-                    b.HasIndex("MaComBo");
+                    b.HasIndex(new[] { "MaComBo" }, "IX_CHI_TIET_COM_BO_ma_com_bo");
 
-                    b.HasIndex("MaSanPham");
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_CHI_TIET_COM_BO_ma_san_pham");
 
                     b.ToTable("CHI_TIET_COM_BO", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.ChiTietDonHang", b =>
                 {
-                    b.Property<string>("MaCtdh")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaCtdh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_ctdh");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaCtdh"));
 
                     b.Property<int?>("Gia")
                         .HasColumnType("int")
@@ -130,18 +143,19 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaCtdh")
                         .HasName("PK__CHI_TIET__5AE49D8E95395895");
 
-                    b.HasIndex("MaCombo");
+                    b.HasIndex(new[] { "MaCombo" }, "IX_CHI_TIET_DON_HANG_ma_combo");
 
                     b.ToTable("CHI_TIET_DON_HANG", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.ChiTietGioHang", b =>
                 {
-                    b.Property<string>("MaCtgh")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaCtgh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_ctgh");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaCtgh"));
 
                     b.Property<int?>("Gia")
                         .HasColumnType("int")
@@ -172,7 +186,11 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaCtgh")
                         .HasName("PK__CHI_TIET__5AE495EDA6F2A925");
 
-                    b.HasIndex("MaGioHang");
+                    b.HasIndex(new[] { "MaCombo" }, "IX_CHI_TIET_GIO_HANG_ma_combo");
+
+                    b.HasIndex(new[] { "MaGioHang" }, "IX_CHI_TIET_GIO_HANG_ma_gio_hang");
+
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_CHI_TIET_GIO_HANG_ma_san_pham");
 
                     b.ToTable("CHI_TIET_GIO_HANG", (string)null);
                 });
@@ -180,8 +198,11 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.ComBoSanPham", b =>
                 {
                     b.Property<int>("MaComBo")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ma_com_bo");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaComBo"));
 
                     b.Property<string>("MoTa")
                         .HasMaxLength(255)
@@ -218,11 +239,12 @@ namespace UltraStrore.Migrations
 
             modelBuilder.Entity("UltraStrore.Data.DanhSachDiaChi", b =>
                 {
-                    b.Property<string>("MaDiaChi")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaDiaChi")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_dia_chi");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDiaChi"));
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(255)
@@ -235,9 +257,7 @@ namespace UltraStrore.Migrations
                         .HasColumnName("ho_ten");
 
                     b.Property<string>("MaNguoiDung")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nguoi_dung");
 
                     b.Property<string>("MoTa")
@@ -257,18 +277,19 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaDiaChi")
                         .HasName("PK__DANH_SAC__80439859B4824340");
 
-                    b.HasIndex("MaNguoiDung");
+                    b.HasIndex(new[] { "MaNguoiDung" }, "IX_DANH_SACH_DIA_CHI_ma_nguoi_dung");
 
                     b.ToTable("DANH_SACH_DIA_CHI", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.DonHang", b =>
                 {
-                    b.Property<string>("MaDonHang")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaDonHang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_don_hang");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDonHang"));
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(255)
@@ -281,18 +302,14 @@ namespace UltraStrore.Migrations
                         .HasColumnName("ly_do_huy");
 
                     b.Property<string>("MaNguoiDung")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nguoi_dung");
 
                     b.Property<string>("MaNhanVien")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nhan_vien");
 
-                    b.Property<DateOnly?>("NgayDat")
+                    b.Property<DateTime?>("NgayDat")
                         .HasColumnType("date")
                         .HasColumnName("ngay_dat");
 
@@ -319,9 +336,9 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaDonHang")
                         .HasName("PK__DON_HANG__0246C5EAB291F99F");
 
-                    b.HasIndex("MaNguoiDung");
+                    b.HasIndex(new[] { "MaNguoiDung" }, "IX_DON_HANG_ma_nguoi_dung");
 
-                    b.HasIndex("MaNhanVien");
+                    b.HasIndex(new[] { "MaNhanVien" }, "IX_DON_HANG_ma_nhan_vien");
 
                     b.ToTable("DON_HANG", (string)null);
                 });
@@ -329,19 +346,20 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.GioHang", b =>
                 {
                     b.Property<int>("MaGioHang")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ma_gio_hang");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaGioHang"));
+
                     b.Property<string>("MaNguoiDung")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nguoi_dung");
 
                     b.HasKey("MaGioHang")
                         .HasName("PK__GIO_HANG__6C00DDA3D3ED86DE");
 
-                    b.HasIndex("MaNguoiDung");
+                    b.HasIndex(new[] { "MaNguoiDung" }, "IX_GIO_HANG_ma_nguoi_dung");
 
                     b.ToTable("GIO_HANG", (string)null);
                 });
@@ -349,8 +367,11 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.HinhAnh", b =>
                 {
                     b.Property<int>("MaHinhAnh")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("ma_hinh_anh");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaHinhAnh"));
 
                     b.Property<int?>("MaBinhLuan")
                         .HasColumnType("int")
@@ -370,20 +391,21 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaHinhAnh")
                         .HasName("PK__HINH_ANH__5AE49D8E2E189F36");
 
-                    b.HasIndex("MaBinhLuan");
+                    b.HasIndex(new[] { "MaBinhLuan" }, "IX_HINH_ANH_ma_binh_luan");
 
-                    b.HasIndex("MaSanPham");
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_HINH_ANH_ma_san_pham");
 
                     b.ToTable("HINH_ANH", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.LoaiSanPham", b =>
                 {
-                    b.Property<string>("MaLoaiSanPham")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaLoaiSanPham")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_loai_san_pham");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaLoaiSanPham"));
 
                     b.Property<string>("TenLoaiSanPham")
                         .HasMaxLength(100)
@@ -399,10 +421,12 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.NguoiDung", b =>
                 {
                     b.Property<string>("MaNguoiDung")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("ma_nguoi_dung");
+
+                    b.Property<int?>("CancelConunt")
+                        .HasColumnType("int");
 
                     b.Property<string>("Cccd")
                         .HasMaxLength(20)
@@ -429,73 +453,46 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ho_ten");
 
-                    b.Property<string>("MaLa")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
-                        .HasColumnName("ma_la");
+                    b.Property<DateTime?>("LockoutEndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MatKhau")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("mat_khau");
 
-                    b.Property<DateOnly?>("NgayKy")
-                        .HasColumnType("date")
-                        .HasColumnName("ngay_ky");
+                    b.Property<string>("MoTa")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
+                        .HasColumnName("mo_ta");
 
-                    b.Property<DateOnly?>("NgaySinh")
+                    b.Property<DateTime?>("NgaySinh")
                         .HasColumnType("date")
                         .HasColumnName("ngay_sinh");
+
+                    b.Property<DateTime?>("NgayTao")
+                        .HasColumnType("date")
+                        .HasColumnName("ngay_tao");
 
                     b.Property<string>("Sdt")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)")
                         .HasColumnName("sdt");
 
-                    b.Property<bool?>("TrangThai")
-                        .HasColumnType("bit")
+                    b.Property<string>("TaiKhoan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TrangThai")
+                        .HasColumnType("int")
                         .HasColumnName("trang_thai");
+
+                    b.Property<int?>("VaiTro")
+                        .HasColumnType("int");
 
                     b.HasKey("MaNguoiDung")
                         .HasName("PK__NGUOI_DU__19C32CF72B9CA41E");
 
                     b.ToTable("NGUOI_DUNG", (string)null);
-                });
-
-            modelBuilder.Entity("UltraStrore.Data.NhanVien", b =>
-                {
-                    b.Property<string>("MaNhanVien")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
-                        .HasColumnName("ma_nhan_vien");
-
-                    b.Property<string>("DiaChi")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("dia_chi");
-
-                    b.Property<string>("MaLa")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
-                        .HasColumnName("ma_la");
-
-                    b.Property<string>("Sdt")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnName("sdt");
-
-                    b.Property<string>("TenNhanVien")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("ten_nhan_vien");
-
-                    b.HasKey("MaNhanVien")
-                        .HasName("PK__NHAN_VIE__6781B7B911E58FF4");
-
-                    b.ToTable("NHAN_VIEN", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.SanPham", b =>
@@ -506,9 +503,9 @@ namespace UltraStrore.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ma_san_pham");
 
-                    b.Property<bool?>("Example")
-                        .HasColumnType("bit")
-                        .HasColumnName("example");
+                    b.Property<string>("ChatLieu")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("chat_lieu");
 
                     b.Property<int?>("Gia")
                         .HasColumnType("int")
@@ -526,16 +523,12 @@ namespace UltraStrore.Migrations
                         .HasColumnType("varchar(10)")
                         .HasColumnName("ma_com_bo");
 
-                    b.Property<string>("MaLoaiSanPham")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int?>("MaLoaiSanPham")
+                        .HasColumnType("int")
                         .HasColumnName("ma_loai_san_pham");
 
-                    b.Property<string>("MaThuongHieu")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int?>("MaThuongHieu")
+                        .HasColumnType("int")
                         .HasColumnName("ma_thuong_hieu");
 
                     b.Property<string>("MoTa")
@@ -543,7 +536,7 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasColumnName("mo_ta");
 
-                    b.Property<DateOnly?>("NgayTao")
+                    b.Property<DateTime?>("NgayTao")
                         .HasColumnType("date")
                         .HasColumnName("ngay_tao");
 
@@ -556,23 +549,28 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ten_san_pham");
 
+                    b.Property<int?>("TrangThai")
+                        .HasColumnType("int")
+                        .HasColumnName("trang_thai");
+
                     b.HasKey("MaSanPham")
                         .HasName("PK__SAN_PHAM__9D25990C2713A687");
 
-                    b.HasIndex("MaLoaiSanPham");
+                    b.HasIndex(new[] { "MaLoaiSanPham" }, "IX_SAN_PHAM_ma_loai_san_pham");
 
-                    b.HasIndex("MaThuongHieu");
+                    b.HasIndex(new[] { "MaThuongHieu" }, "IX_SAN_PHAM_ma_thuong_hieu");
 
                     b.ToTable("SAN_PHAM", (string)null);
                 });
 
             modelBuilder.Entity("UltraStrore.Data.ThuongHieu", b =>
                 {
-                    b.Property<string>("MaThuongHieu")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaThuongHieu")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_thuong_hieu");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaThuongHieu"));
 
                     b.Property<string>("TenThuongHieu")
                         .HasMaxLength(100)
@@ -587,11 +585,12 @@ namespace UltraStrore.Migrations
 
             modelBuilder.Entity("UltraStrore.Data.Video", b =>
                 {
-                    b.Property<string>("MaVideo")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaVideo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_video");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaVideo"));
 
                     b.Property<string>("MaSanPham")
                         .HasMaxLength(20)
@@ -607,7 +606,7 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaVideo")
                         .HasName("PK__VIDEO__946AD5B8DC15860F");
 
-                    b.HasIndex("MaSanPham");
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_VIDEO_ma_san_pham");
 
                     b.ToTable("VIDEO", (string)null);
                 });
@@ -620,9 +619,8 @@ namespace UltraStrore.Migrations
                         .HasColumnType("varchar(10)")
                         .HasColumnName("ma_voucher");
 
-                    b.Property<string>("DieuKien")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
+                    b.Property<decimal?>("DieuKien")
+                        .HasColumnType("decimal(18, 0)")
                         .HasColumnName("dieu_kien");
 
                     b.Property<double?>("GiamGia")
@@ -634,11 +632,11 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("mo_ta");
 
-                    b.Property<DateOnly?>("NgayBatDau")
+                    b.Property<DateTime?>("NgayBatDau")
                         .HasColumnType("date")
                         .HasColumnName("ngay_bat_dau");
 
-                    b.Property<DateOnly?>("NgayKetThuc")
+                    b.Property<DateTime?>("NgayKetThuc")
                         .HasColumnType("date")
                         .HasColumnName("ngay_ket_thuc");
 
@@ -651,8 +649,8 @@ namespace UltraStrore.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("ten_voucher");
 
-                    b.Property<bool?>("TrangThai")
-                        .HasColumnType("bit")
+                    b.Property<int?>("TrangThai")
+                        .HasColumnType("int")
                         .HasColumnName("trang_thai");
 
                     b.HasKey("MaVoucher")
@@ -663,17 +661,19 @@ namespace UltraStrore.Migrations
 
             modelBuilder.Entity("UltraStrore.Data.YeuThich", b =>
                 {
-                    b.Property<string>("MaYeuThich")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                    b.Property<int>("MaYeuThich")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasColumnName("ma_yeu_thich");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaYeuThich"));
+
                     b.Property<string>("MaNguoiDung")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("ma_nguoi_dung");
+
+                    b.Property<string>("MaNguoiDungNavigationMaNguoiDung")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaSanPham")
                         .HasMaxLength(20)
@@ -681,7 +681,7 @@ namespace UltraStrore.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("ma_san_pham");
 
-                    b.Property<DateOnly?>("NgayYeuThich")
+                    b.Property<DateTime?>("NgayYeuThich")
                         .HasColumnType("date")
                         .HasColumnName("ngay_yeu_thich");
 
@@ -692,7 +692,9 @@ namespace UltraStrore.Migrations
                     b.HasKey("MaYeuThich")
                         .HasName("PK__YEU_THIC__6427C4C6C61640D4");
 
-                    b.HasIndex("MaSanPham");
+                    b.HasIndex("MaNguoiDungNavigationMaNguoiDung");
+
+                    b.HasIndex(new[] { "MaSanPham" }, "IX_YEU_THICH_ma_san_pham");
 
                     b.ToTable("YEU_THICH", (string)null);
                 });
@@ -736,12 +738,26 @@ namespace UltraStrore.Migrations
 
             modelBuilder.Entity("UltraStrore.Data.ChiTietGioHang", b =>
                 {
+                    b.HasOne("UltraStrore.Data.ComBoSanPham", "MaComboNavigation")
+                        .WithMany("ChiTietGioHangs")
+                        .HasForeignKey("MaCombo")
+                        .HasConstraintName("FK_CHI_TIET_GIO_HANG_COM_BO_SAN_PHAM");
+
                     b.HasOne("UltraStrore.Data.GioHang", "MaGioHangNavigation")
                         .WithMany("ChiTietGioHangs")
                         .HasForeignKey("MaGioHang")
                         .HasConstraintName("FK_CHI_TIET_GIO_HANG_GIO_HANG");
 
+                    b.HasOne("UltraStrore.Data.SanPham", "MaSanPhamNavigation")
+                        .WithMany("ChiTietGioHangs")
+                        .HasForeignKey("MaSanPham")
+                        .HasConstraintName("FK_CHI_TIET_GIO_HANG_SAN_PHAM");
+
+                    b.Navigation("MaComboNavigation");
+
                     b.Navigation("MaGioHangNavigation");
+
+                    b.Navigation("MaSanPhamNavigation");
                 });
 
             modelBuilder.Entity("UltraStrore.Data.DanhSachDiaChi", b =>
@@ -757,14 +773,14 @@ namespace UltraStrore.Migrations
             modelBuilder.Entity("UltraStrore.Data.DonHang", b =>
                 {
                     b.HasOne("UltraStrore.Data.NguoiDung", "MaNguoiDungNavigation")
-                        .WithMany("DonHangs")
+                        .WithMany("DonHangMaNguoiDungNavigations")
                         .HasForeignKey("MaNguoiDung")
-                        .HasConstraintName("FK_DON_HANG_NGUOI_DUNG");
+                        .HasConstraintName("FK_DON_HANG_NGUOI_DUNG1");
 
-                    b.HasOne("UltraStrore.Data.NhanVien", "MaNhanVienNavigation")
-                        .WithMany("DonHangs")
+                    b.HasOne("UltraStrore.Data.NguoiDung", "MaNhanVienNavigation")
+                        .WithMany("DonHangMaNhanVienNavigations")
                         .HasForeignKey("MaNhanVien")
-                        .HasConstraintName("FK_DON_HANG_NHAN_VIEN");
+                        .HasConstraintName("FK_DON_HANG_NGUOI_DUNG2");
 
                     b.Navigation("MaNguoiDungNavigation");
 
@@ -827,10 +843,16 @@ namespace UltraStrore.Migrations
 
             modelBuilder.Entity("UltraStrore.Data.YeuThich", b =>
                 {
+                    b.HasOne("UltraStrore.Data.NguoiDung", "MaNguoiDungNavigation")
+                        .WithMany()
+                        .HasForeignKey("MaNguoiDungNavigationMaNguoiDung");
+
                     b.HasOne("UltraStrore.Data.SanPham", "MaSanPhamNavigation")
-                        .WithMany("YeuThiches")
+                        .WithMany("YeuThichs")
                         .HasForeignKey("MaSanPham")
                         .HasConstraintName("FK_YEU_THICH_SAN_PHAM");
+
+                    b.Navigation("MaNguoiDungNavigation");
 
                     b.Navigation("MaSanPhamNavigation");
                 });
@@ -845,6 +867,8 @@ namespace UltraStrore.Migrations
                     b.Navigation("ChiTietComBos");
 
                     b.Navigation("ChiTietDonHangs");
+
+                    b.Navigation("ChiTietGioHangs");
                 });
 
             modelBuilder.Entity("UltraStrore.Data.GioHang", b =>
@@ -861,14 +885,11 @@ namespace UltraStrore.Migrations
                 {
                     b.Navigation("DanhSachDiaChis");
 
-                    b.Navigation("DonHangs");
+                    b.Navigation("DonHangMaNguoiDungNavigations");
+
+                    b.Navigation("DonHangMaNhanVienNavigations");
 
                     b.Navigation("GioHangs");
-                });
-
-            modelBuilder.Entity("UltraStrore.Data.NhanVien", b =>
-                {
-                    b.Navigation("DonHangs");
                 });
 
             modelBuilder.Entity("UltraStrore.Data.SanPham", b =>
@@ -877,11 +898,13 @@ namespace UltraStrore.Migrations
 
                     b.Navigation("ChiTietComBos");
 
+                    b.Navigation("ChiTietGioHangs");
+
                     b.Navigation("HinhAnhs");
 
                     b.Navigation("Videos");
 
-                    b.Navigation("YeuThiches");
+                    b.Navigation("YeuThichs");
                 });
 
             modelBuilder.Entity("UltraStrore.Data.ThuongHieu", b =>
